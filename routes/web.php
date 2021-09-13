@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SaranaController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,41 +21,27 @@ use App\Http\Controllers\PageController;
 */
 
 // halaman home
-Route::get('/',[PageController::class,'homePage']);
+Route::get('/',[HomeController::class,'index']);
 
 // halaman Program studi (route prefix)
 Route::prefix('prodi')->group(function(){
-  Route::get('/manajemen-informatika', function(){
-    return "Prodi Manajemen Informatika";
-  });
-  Route::get('/teknik-informatika', function(){
-    return "Prodi Teknik Informatika";
-  });
+  Route::get('/manajemen-informatika', [ProdiController::class, 'mi']);
+  Route::get('/teknik-informatika', [ProdiController::class, 'ti']);
 });
 
 // halaman news
-Route::get('newsPage/{id}', [PageController::class, 'newsPage']);
+Route::get('news/{id}', [NewsController::class, 'index']);
 
 // halaman sarana
 Route::prefix('sarana')->group(function(){
-  Route::get('/perkantoran', function(){
-    return "Perkantoran";
-  });
-  Route::get('/laboratorium', function(){
-    return "Laboratorium";
-  });
-  Route::get('/kelas', function(){
-    return "Ruangan";
-  });
-  Route::get('/lainnya', function(){
-    return "Sarana yang lainnya";
-  });
+  Route::get('/perkantoran', [SaranaController::class, 'kantor']);
+  Route::get('/laboratorium', [SaranaController::class, 'lab']);
+  Route::get('/kelas', [SaranaController::class, 'kelas']);
+  Route::get('/lainnya', [SaranaController::class, 'lain']);
 });
 
 // about
-Route::get('aboutUs', function(){
-  echo "[2031710017] Eva Monika Septiana";
-});
+Route::get('/about',[AboutController::class, 'about']);
 
 // halaman commen
-Route:: get('{nama}/{id}', [PageController::class,'commentPage']);
+Route:: get('/comment/{nama}/{id}', [CommentController::class,'index']);
