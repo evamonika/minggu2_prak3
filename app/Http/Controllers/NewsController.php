@@ -8,6 +8,6 @@ class NewsController extends Controller
 {
     public function index($id)
     {
-        return 'Berita tersebut adalah berita ke-' . $id;
+        return view('news', ['id' => $id]);
     }
 }
